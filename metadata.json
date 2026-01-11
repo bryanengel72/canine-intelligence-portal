@@ -1,0 +1,8 @@
+
+{
+  "name": "Canine Intelligence Portal",
+  "description": "An AI-powered professional canine wellness platform providing personalized diagnostics, health alerts, and genetic care strategies for breeders, veterinarians, and owners. Dedicated to The Paddington Initiative.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
