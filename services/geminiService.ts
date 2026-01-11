@@ -3,7 +3,11 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { DogProfile, FinalIntelligenceReport } from "../types";
 
 export const generateCarePlan = async (profile: DogProfile): Promise<FinalIntelligenceReport> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("Gemini API Key is missing. Please set VITE_GEMINI_API_KEY in .env.local");
+  }
+  const ai = new GoogleGenAI({ apiKey });
   
   const prompt = `Act as an elite veterinary geneticist and canine behavioral historian. Generate a comprehensive "Clinical Wellness & Longevity Roadmap" for a ${profile.size} ${profile.generation} ${profile.breed}.
   
