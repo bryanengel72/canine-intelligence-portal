@@ -8,7 +8,7 @@ export const generateCarePlan = async (profile: DogProfile): Promise<FinalIntell
     throw new Error("Gemini API Key is missing. Please set VITE_GEMINI_API_KEY in .env.local");
   }
   const ai = new GoogleGenAI({ apiKey });
-  
+
   const prompt = `Act as an elite veterinary geneticist and canine behavioral historian. Generate a comprehensive "Clinical Wellness & Longevity Roadmap" for a ${profile.size} ${profile.generation} ${profile.breed}.
   
   THIS REPORT IS FOR DEDICATED FAMILIES. GO BEYOND BASIC TIPS. PROVIDE DEEP BREED INSIGHTS.
@@ -50,13 +50,13 @@ export const generateCarePlan = async (profile: DogProfile): Promise<FinalIntell
                   label: { type: Type.STRING },
                   value: { type: Type.STRING, description: "Detailed Plain English narrative with breed context" },
                   items: { type: Type.ARRAY, items: { type: Type.STRING }, description: "Specific bulleted details or portion sizes" },
-                  pairs: { 
-                    type: Type.ARRAY, 
-                    items: { 
-                      type: Type.OBJECT, 
-                      properties: { 
-                        k: { type: Type.STRING, description: "Category/Stage" }, 
-                        v: { type: Type.STRING, description: "Value/Action" } 
+                  pairs: {
+                    type: Type.ARRAY,
+                    items: {
+                      type: Type.OBJECT,
+                      properties: {
+                        k: { type: Type.STRING, description: "Category/Stage" },
+                        v: { type: Type.STRING, description: "Value/Action" }
                       },
                       required: ["k", "v"]
                     }
@@ -75,7 +75,7 @@ export const generateCarePlan = async (profile: DogProfile): Promise<FinalIntell
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-pro-preview",
+      model: "gemini-1.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
