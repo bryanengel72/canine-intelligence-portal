@@ -13,7 +13,7 @@ const EntryRenderer: React.FC<{ entry: ReportEntry; isAlert?: boolean }> = ({ en
       {isAlert && <i className="fa-solid fa-circle-exclamation mr-2"></i>}
       {entry.label}
     </h5>
-    {entry.value && <p className={`leading-relaxed font-bold text-lg md:text-xl mb-6 ${isAlert ? 'text-rose-950' : 'text-slate-900'}`}>{entry.value}</p>}
+    {entry.value && <p className={`leading-relaxed font-bold text-lg md:text-xl mb-6 ${isAlert ? 'text-rose-950' : 'text-slate-900'}`} dangerouslySetInnerHTML={{ __html: entry.value }}></p>}
     {entry.items && entry.items.length > 0 && (
       <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         {entry.items.map((item, i) => (
@@ -90,7 +90,8 @@ const ReportView: React.FC<ReportViewProps> = ({ report, profile }) => {
 
   return (
     <div className="max-w-7xl mx-auto animate-fadeIn mt-12 relative px-4">
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @media print {
           @page { margin: 1.2cm; size: A4; }
           body { background: white !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -106,27 +107,26 @@ const ReportView: React.FC<ReportViewProps> = ({ report, profile }) => {
         <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none rotate-12">
           <i className="fa-solid fa-stethoscope text-[20rem]"></i>
         </div>
-        
+
         <div className="relative z-10">
           <div className="max-w-6xl mb-16">
             <h2 className="text-5xl md:text-7xl font-[900] uppercase tracking-tighter mb-12 leading-[0.85]">
               {report.title}
             </h2>
-            <p className="text-indigo-100/90 text-2xl md:text-4xl font-bold leading-[1.45] italic border-l-8 border-indigo-500/50 pl-10 tracking-tight">
-              {report.introduction}
+            <p className="text-indigo-100/90 text-2xl md:text-4xl font-bold leading-[1.45] italic border-l-8 border-indigo-500/50 pl-10 tracking-tight" dangerouslySetInnerHTML={{ __html: report.introduction }}>
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-6 justify-start mt-20">
-            <button 
-              onClick={handleShare} 
+            <button
+              onClick={handleShare}
               className="bg-indigo-950 text-white border border-white/10 px-12 py-7 rounded-full font-black uppercase text-xs tracking-[0.2em] hover:bg-indigo-900 transition-all shadow-xl flex items-center gap-4 group"
             >
               <i className="fa-solid fa-share-nodes text-lg group-hover:scale-110 transition-transform"></i>
               {copied ? 'Link Copied' : 'Share Report'}
             </button>
-            <button 
-              onClick={handleDownload} 
+            <button
+              onClick={handleDownload}
               className="bg-white text-indigo-950 px-14 py-7 rounded-full font-black uppercase text-xs tracking-[0.2em] hover:bg-indigo-50 transition-all shadow-2xl flex items-center gap-4 border border-white group"
             >
               <i className="fa-solid fa-file-pdf text-lg text-indigo-600 group-hover:scale-110 transition-transform"></i>
@@ -145,8 +145,8 @@ const ReportView: React.FC<ReportViewProps> = ({ report, profile }) => {
               onClick={() => setActiveTab(key)}
               className={`
                 flex-1 min-w-[180px] flex flex-col items-center justify-center gap-3 py-8 px-6 rounded-[3.5rem] transition-all cursor-pointer
-                ${activeTab === key 
-                  ? 'bg-indigo-950 text-white shadow-2xl scale-[1.03]' 
+                ${activeTab === key
+                  ? 'bg-indigo-950 text-white shadow-2xl scale-[1.03]'
                   : 'text-indigo-950/40 hover:text-indigo-950 hover:bg-white/90'}
               `}
             >
@@ -166,17 +166,16 @@ const ReportView: React.FC<ReportViewProps> = ({ report, profile }) => {
           </div>
 
           <div className="px-12 max-w-5xl">
-            <p className="text-xl md:text-2xl text-slate-600 font-bold italic leading-relaxed mb-4 border-l-4 border-slate-200 pl-8">
-              {activeGuide.data.description}
+            <p className="text-xl md:text-2xl text-slate-600 font-bold italic leading-relaxed mb-4 border-l-4 border-slate-200 pl-8" dangerouslySetInnerHTML={{ __html: activeGuide.data.description }}>
             </p>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-16">
             {activeGuide.data.sections.map((section, idx) => (
-              <SectionCard 
-                key={idx} 
-                section={section} 
-                isSpecial={activeTab === 'preventative' || activeTab === 'health' || activeTab === 'nutrition'} 
+              <SectionCard
+                key={idx}
+                section={section}
+                isSpecial={activeTab === 'preventative' || activeTab === 'health' || activeTab === 'nutrition'}
               />
             ))}
           </div>
