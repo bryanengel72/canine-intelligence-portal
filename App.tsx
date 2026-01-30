@@ -25,7 +25,9 @@ const App: React.FC = () => {
     } catch (err) {
       console.error(err);
       console.error(err);
-      alert("Our intelligence systems are experiencing high demand. Please try again in a moment.");
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+      // Temporary: showing detailed error for debugging
+      alert(`System Error: ${errorMessage}\n\nPlease take a screenshot of this.`);
     } finally {
       setLoading(false);
     }

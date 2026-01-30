@@ -7,6 +7,8 @@ export const generateCarePlan = async (profile: DogProfile): Promise<FinalIntell
   if (!apiKey) {
     throw new Error("Gemini API Key is missing. Please set VITE_GEMINI_API_KEY in .env.local");
   }
+  // Debug log to confirm key is loaded in production
+  console.log("Gemini API Key loaded:", apiKey ? `${apiKey.substring(0, 5)}...` : "None");
   const ai = new GoogleGenAI({ apiKey });
 
   const prompt = `Act as an elite veterinary geneticist and canine behavioral historian. Generate a comprehensive "Clinical Wellness & Longevity Roadmap" for a ${profile.size} ${profile.generation} ${profile.breed}.
