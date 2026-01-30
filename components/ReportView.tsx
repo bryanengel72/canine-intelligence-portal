@@ -38,16 +38,16 @@ const EntryRenderer: React.FC<{ entry: ReportEntry; isAlert?: boolean }> = ({ en
 );
 
 const SectionCard: React.FC<{ section: ReportSection; isSpecial?: boolean }> = ({ section, isSpecial }) => (
-  <div className={`bg-white border rounded-[4rem] p-12 md:p-16 shadow-sm transition-all hover:shadow-2xl group ${isSpecial ? 'border-rose-100 shadow-rose-500/5 hover:shadow-rose-500/10' : 'border-indigo-50/50 hover:shadow-indigo-500/5'}`}>
-    <div className="flex items-center gap-5 mb-12 border-b border-slate-50 pb-8">
-      <div className={`w-14 h-14 rounded-3xl flex items-center justify-center ${isSpecial ? 'bg-rose-50 text-rose-500' : 'bg-indigo-50 text-indigo-600'}`}>
-        <i className={`fa-solid ${isSpecial ? 'fa-calendar-check' : 'fa-list-check'} text-2xl`}></i>
+  <div className={`w-full xl:w-[calc(50%-1rem)] bg-white border rounded-[3rem] p-8 md:p-10 shadow-sm transition-all hover:shadow-2xl group ${isSpecial ? 'border-rose-100 shadow-rose-500/5 hover:shadow-rose-500/10' : 'border-indigo-50/50 hover:shadow-indigo-500/5'}`}>
+    <div className="flex items-center gap-5 mb-8 border-b border-slate-50 pb-6">
+      <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${isSpecial ? 'bg-rose-50 text-rose-500' : 'bg-indigo-50 text-indigo-600'}`}>
+        <i className={`fa-solid ${isSpecial ? 'fa-calendar-check' : 'fa-list-check'} text-xl`}></i>
       </div>
-      <h4 className={`text-3xl font-[900] uppercase tracking-tighter ${isSpecial ? 'text-rose-950' : 'text-indigo-950'}`}>
+      <h4 className={`text-2xl md:text-3xl font-[900] uppercase tracking-tighter ${isSpecial ? 'text-rose-950' : 'text-indigo-950'}`}>
         {section.title}
       </h4>
     </div>
-    <div className="space-y-12">
+    <div className="space-y-8">
       {section.entries.map((entry, i) => (
         <EntryRenderer key={i} entry={entry} isAlert={isSpecial} />
       ))}
@@ -170,7 +170,7 @@ const ReportView: React.FC<ReportViewProps> = ({ report, profile }) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-16">
+          <div className="flex flex-wrap justify-center gap-8">
             {activeGuide.data.sections.map((section, idx) => (
               <SectionCard
                 key={idx}
